@@ -28,7 +28,7 @@ FLAGS = flags.FLAGS
 
 
 # TO-DO replace this with label map
-def class_text_to_int(row_label):
+def class_text_to_int(row_label, filename):
     if row_label == 'A':
         return 1
     if row_label == 'B':
@@ -162,7 +162,8 @@ def class_text_to_int(row_label):
 
     else:
         print(row_label)
-        return None
+        print(filename)
+        return 66
 
 
 def split(df, group):
@@ -193,7 +194,7 @@ def create_tf_example(group, path):
         ymins.append(row['ymin'] / height)
         ymaxs.append(row['ymax'] / height)
         classes_text.append(row['class'].encode('utf8'))
-        classes.append(class_text_to_int(row['class']))
+        classes.append(class_text_to_int(row['class'], group.filename))
 
     tf_example = tf.train.Example(features=tf.train.Features(feature={
         'image/height': dataset_util.int64_feature(height),
